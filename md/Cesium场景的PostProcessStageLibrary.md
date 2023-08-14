@@ -27,6 +27,40 @@ PostProcessStageLibrary 库提供了一组预定义的后期处理效果，开�
 
 <br />
 
+## FXAA（快速近似抗锯齿）
+
+> Cesium 场景默认不开启（enabled 为 false）
+
+![后期处理](./Cesium场景的PostProcessStageLibrary/2.png)
+
+<br />
+
+### 说明
+
+fxaa 效果的后期处理效果，添加抗锯齿效果。
+启用后，此阶段将在所有其他阶段之后执行。
+
+<br />
+
+### 设置
+
+1. 获取场景 fxaa 后期处理阶段：
+
+```tsx
+this.fxaa = this.viewer.scene.postProcessStages.fxaa;
+```
+
+2. 通过 GUI 可视化控件，修改 fxaa 属性值，来查看 fxaa 变化:
+
+```ts
+let fxaa_folder = gui.addFolder("Fxaa");
+fxaa_folder.add({ show: true }, "show").onChange((v: boolean) => {
+  viewer.scene.postProcessStages.fxaa.enabled = v;
+});
+```
+
+<br />
+
 ## Bloom（泛光）
 
 > Cesium 场景默认不开启（enabled 为 false）
@@ -38,6 +72,7 @@ PostProcessStageLibrary 库提供了一组预定义的后期处理效果，开�
 ### 说明
 
 bloom 效果的后期处理效果，添加发光效果，使明亮区域更亮，使黑暗区域更暗。
+启用后，此阶段将在所有其他阶段之前执行。
 
 <br />
 
@@ -79,7 +114,41 @@ const reviseGui = (
 };
 ```
 
+<br />
+
 ## Ambient Occlusion（环境遮蔽）
+
+> Cesium 场景默认不开启（enabled 为 false）
+
+![后期处理](./Cesium场景的PostProcessStageLibrary/3.png)
+
+<br />
+
+### 说明
+
+ambientOcclusion 效果的后期处理效果，设置场景环境光遮蔽。
+环境光遮蔽模拟来自环境光的阴影。当表面接收光线时，无论光线的位置如何，这些阴影将始终存在。
+启用后，此阶段将在所有其他阶段之前执行。
+
+<br />
+
+### uniforms
+
+| 参数                 | 类型    | 描述                                                                                                                                                            |
+| -------------------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| intensity            | number  | 用于以指数方式使阴影变亮或变暗。值越高，阴影越暗。（默认值为 3.0）                                                                                              |
+| bias                 | number  | 如果样本法线与相机矢量之间的点积小于此值，则采样将停止在当前方向上。（默认值为 0.1）                                                                            |
+| lengthCap            | number  | 如果从当前样本到第一个样本的距离大于此值，则取样将停止在当前方向上。（默认值为 0.26）                                                                           |
+| stepSize             | number  | 指示在当前方向上到下一个纹素样本的距离。（默认值为 1.95）                                                                                                       |
+| frustumLength        | number  | 如果当前片段与相机的距离大于此值，则不会计算该片段的环境光遮蔽。（默认值为 1000.0）                                                                             |
+| ambientOcclusionOnly | boolean | 这是一个有用的调试选项，用于查看更改统一值的效果。（默认值为 false）<br>当 true 时，只有生成的阴影被写入输出。<br>当 false 时，输入纹理使用环境光遮蔽进行调制。 |
+| delta                | number  | 计算高斯滤波器的权重（默认值为 1.0）                                                                                                                            |
+| sigma                | number  | 计算高斯滤波器的权重（默认值为 2.0 ）                                                                                                                           |
+| stepSize             | number  | 到下一个纹素的距离（默认值为 1.0 ）                                                                                                                             |
+
+<br />
+
+### 设置
 
 1. 获取场景 AmbientOcclusion 后期处理阶段：
 
@@ -108,6 +177,10 @@ const reviseGui = (
   ambientOcclusion.uniforms.stepSize = Number(guiParams.stepSize);
 };
 ```
+
+<br />
+
+![后期处理](./Cesium场景的PostProcessStageLibrary/1.gif)
 
 <br />
 

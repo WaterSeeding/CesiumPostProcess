@@ -36,8 +36,6 @@ class AmbientOcclusion {
     ) {
       window.alert('当前浏览器不支持Ambient Occlusion 阶段处理！');
     } else {
-      console.log('[this.ambientOcclusion]', this.ambientOcclusion.uniforms);
-
       setParams(this.ambientOcclusion, ambientOcclusionTable).then(
         (storeAmbientOcclusionParams: AmbientOcclusionParamsInterface) => {
           this.ambientOcclusionInitParams =
