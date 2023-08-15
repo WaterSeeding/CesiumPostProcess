@@ -20,9 +20,9 @@ viewer.clock.currentTime = Cesium.JulianDate.fromIso8601(
   "2023-08-14T11:00:00Z"
 );
 
-console.log("viewer.scene.postProcessStages.fxaa.enabled", viewer.scene.postProcessStages.fxaa.enabled)
-console.log("viewer.scene.postProcessStages.bloom.enabled", viewer.scene.postProcessStages.bloom.enabled)
-console.log("viewer.scene.postProcessStages.ambientOcclusion.enabled", viewer.scene.postProcessStages.ambientOcclusion.enabled)
+console.log("fxaa", viewer.scene.postProcessStages.fxaa.enabled)
+console.log("bloom", viewer.scene.postProcessStages.bloom.enabled)
+console.log("ambientOcclusion", viewer.scene.postProcessStages.ambientOcclusion.enabled)
 
 viewer.scene.postProcessStages.fxaa.enabled = true;
 
